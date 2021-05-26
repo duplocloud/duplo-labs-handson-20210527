@@ -1,7 +1,6 @@
-// STEP 5 - Create and harden multiple AWS managed services that the application will use:
+// STEP 6 - Create and harden multiple AWS managed services that the application will use:
 //
 //   - an AWS ElasticCache Redis instance
-//   - an AWS Kafka cluster
 //   - an AWS S3 bucket
 //   - an AWS RDS instance (with a randomly generated password)
 //
@@ -12,17 +11,6 @@ resource "duplocloud_ecache_instance" "mycache" {
   cache_type = 0 // Redis
   replicas   = 1
   size       = "cache.t2.small"
-}
-
-resource "duplocloud_aws_kafka_cluster" "this" {
-  tenant_id     = duplocloud_tenant.this.tenant_id
-  name          = "mycluster"
-  kafka_version = "2.4.1.1"
-  instance_type = "kafka.m5.large"
-  storage_size  = 20
-  timeouts {
-    create = "45m"
-  }
 }
 
 resource "duplocloud_s3_bucket" "mydata" {

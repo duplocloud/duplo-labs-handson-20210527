@@ -37,3 +37,16 @@ resource "duplocloud_tenant" "this" {
   account_name = "lab"
   plan_id      = data.terraform_remote_state.base-infra.outputs["plan_id"]
 }
+
+
+// STEP 5 - Create an EKS node in the tenant.
+resource "duplocloud_aws_host" "eks" {
+  tenant_id     = duplocloud_tenant.this.tenant_id
+  friendly_name = "eks1"
+
+  image_id       = "ami-0df97ed0972ef31a3" # <== put the AWS EKS 1.18 AMI ID here
+  capacity       = "t3a.medium"
+  agent_platform = 7          # Duplo EKS agent
+  zone           = 0          # Zone A
+  user_account   = duplocloud_tenant.this.account_name
+}
