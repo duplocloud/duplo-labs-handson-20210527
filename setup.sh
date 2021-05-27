@@ -57,17 +57,6 @@ tf_tmp="$project_root/tmp"
 tf_bin="$project_root/bin"
 out "./bin/terraform: downloading for $sys $arch"
 rm -rf "$tf_tmp" || true
-trap '
-  out "cleaning up temporary files"
-  rm -rf $tf_tmp
-
-  out '"'"'installation complete.
-
-Please run the following in your shell to use Terraform:
-
-  export PATH="'"$project_root"'/bin:$PATH"
-
-'"'" EXIT
 
 mkdir -p "$tf_tmp"
 tf_download="https://releases.hashicorp.com/terraform/${tf_version}/terraform_${tf_version}_${sys}_${arch}.zip"
@@ -77,3 +66,14 @@ out "./bin/terraform: installing"
 rm -f "$tf_bin/terraform"
 unzip -q -d "$tf_bin" "$tf_tmp/terraform.zip" terraform
 chmod +x "$tf_bin/terraform"
+
+out "cleaning up temporary files"
+rm -rf "$tf_tmp"
+
+# shellcheck disable=SC2016   # non-expansion in single-quotes is intended
+out 'installation complete.
+
+Please run the following in your shell to use Terraform:
+
+  export PATH="'"$project_root"'/bin:$PATH"
+'
