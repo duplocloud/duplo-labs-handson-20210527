@@ -18,12 +18,12 @@ provider "duplocloud" {
 
 // STEP 3 - Retrieve information about the tenant that was previously created.
 data "duplocloud_tenant" "this" {
-  account_name = "lab"
+  name = "lab"
 }
 
 // STEP 4 - Create and harden an AWS Kafka cluster
 resource "duplocloud_aws_kafka_cluster" "this" {
-  tenant_id     = data.duplocloud_tenant.this.tenant_id
+  tenant_id     = data.duplocloud_tenant.this.id
   name          = "mycluster"
   kafka_version = "2.4.1.1"
   instance_type = "kafka.m5.large"
