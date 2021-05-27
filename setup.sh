@@ -57,7 +57,17 @@ tf_tmp="$project_root/tmp"
 tf_bin="$project_root/bin"
 out "./bin/terraform: downloading for $sys $arch"
 rm -rf "$tf_tmp" || true
-trap 'out "cleaning up temporary files" ; rm -rf $tf_tmp' EXIT
+trap '
+  out "cleaning up temporary files"
+  rm -rf $tf_tmp
+
+  out '"'"'installation complete.
+
+Please run the following in your shell to use Terraform:
+
+  export PATH="'"$project_root"'/bin:$PATH"
+
+'"'" EXIT
 
 mkdir -p "$tf_tmp"
 tf_download="https://releases.hashicorp.com/terraform/${tf_version}/terraform_${tf_version}_${sys}_${arch}.zip"
