@@ -44,7 +44,7 @@ resource "duplocloud_aws_host" "eks" {
   tenant_id     = duplocloud_tenant.this.tenant_id
   friendly_name = "eks1"
 
-  image_id       = "ami-0df97ed0972ef31a3" # <== put the AWS EKS 1.18 AMI ID here
+  image_id       = data.terraform_remote_state.base-infra.outputs["eks_node_ami"]
   capacity       = "t3a.medium"
   agent_platform = 7          # Duplo EKS agent
   zone           = 0          # Zone A

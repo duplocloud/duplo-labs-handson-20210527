@@ -32,13 +32,13 @@ resource "duplocloud_duplo_service_lbconfigs" "myapp" {
   replication_controller_name = duplocloud_duplo_service.myapp.name
 
   lbconfigs {
-    external_port    = 80 // 443
+    external_port    = 443
     health_check_url = "/"
     is_native        = false
-    lb_type          = 1 # Application load balancer
+    lb_type          = 1      # Application load balancer
     port             = "80"
-    protocol         = "http"
-    // certificate_arn  = data.terraform_remote_state.base-infra.outputs["acm_certificate_arn"]
+    protocol         = "http" # backend protocol
+    certificate_arn  = data.terraform_remote_state.base-infra.outputs["acm_certificate_arn"]
   }
 }
 resource "duplocloud_duplo_service_params" "myapp" {
@@ -49,5 +49,5 @@ resource "duplocloud_duplo_service_params" "myapp" {
   drop_invalid_headers        = true
   enable_access_logs          = true
 
-  // webaclid = data.terraform_remote_state.base-infra.outputs["webaclid"]
+  webaclid = data.terraform_remote_state.base-infra.outputs["web_acl_arn"]
 }
