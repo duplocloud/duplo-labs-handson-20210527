@@ -1,6 +1,8 @@
 # Node artifact files
 node_modules/
 dist/
+tmp/
+bin/terraform
 
 # Compiled Java class files
 *.class
