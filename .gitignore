@@ -3,6 +3,8 @@ node_modules/
 dist/
 tmp/
 bin/terraform
+.terraform.lock.hcl
+**/.terraform.lock.hcl
 
 # Compiled Java class files
 *.class
