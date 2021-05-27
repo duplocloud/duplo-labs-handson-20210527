@@ -18,7 +18,7 @@ provider "duplocloud" {
 
 // STEP 3 - Create a new infrastructure in duplo
 resource "duplocloud_infrastructure" "this" {
-  infra_name        = "lab2"
+  infra_name        = "labinfra"
   cloud             = 0
   region            = "us-west-2"
   azcount           = 2
